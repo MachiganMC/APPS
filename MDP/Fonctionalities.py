@@ -1,5 +1,6 @@
 from MDP.Entry import Entry
 import MDP.Menu as Menu
+import MDP.SaveData as Save
 
 
 def add_username() -> str:
@@ -27,7 +28,7 @@ def add_entry() -> None:
         Menu.accueil()
 
 
-def select_entry(param="service") -> Entry | None:
+def select_entry(param) -> Entry | None:
     entries: list[Entry] = []
     value: str = ""
     if param == "service":
@@ -43,6 +44,7 @@ def select_entry(param="service") -> Entry | None:
     if len(entries) == 0:
         return None
     if len(entries) == 1:
+        print(f"Une seule entrée possède cette valeur: \"{entries[0]}\", elle a donc été automatiquement sélectionnée.")
         return entries[0]
 
     message_choice: str = f"Veuillez sélectionner l'entrée [1 - {len(entries)}] :\n"
@@ -61,18 +63,52 @@ def select_entry(param="service") -> Entry | None:
 
 
 def remove_entry(entry: Entry):
-    Entry.all().remove(entry)
-    print(f"L'entrée suivante \n\t{entry}\na été supprimée")
+    if again(message="Êtes-vous sûr de vouloir supprimer cette entrée ? [y/n]"):
+        Entry.all().remove(entry)
+        print(f"L'entrée suivante \"{entry}\" a été supprimée")
+        return
+    Menu.accueil()
 
 
-def modify_entry(entry: Entry) -> str:
-    pass
+def modify_entry(entry: Entry) -> None:
+    print(f"Quelle donnée de l'entrée \"{entry}\" voulez-vous modifier ?")
+    print("\t1. Le service")
+    print("\t2. Le username")
+    print("\t3. Le mot de passe")
+    choice: int = int(input(""))
+    if choice == 1:
+        value: str = input("Donnez le nouveau nom de service :")
+        if again(f"Voulez-vous remplacer le service \"{entry.service}\" par \"{value}\" [y/n]"):
+            entry.service = value
+    elif choice == 2:
+        value: str = input("Donnez le nouveau username :")
+        if again(f"Voulez-vous remplacer le username \"{entry.username}\" par {value} [y/n]"):
+            entry.username = value
+    elif choice == 3:
+        value: str = input("Donnez le nouveau mot de passe :")
+        if again(f"Voulez-vous remplacer le mot de passe \"{entry.password}\" par \"{value}\" [y/n]"):
+            entry.password = value
+    else:
+        print("Entrée invalide ...")
+        modify_entry(entry)
+
+    if again():
+        modify_entry(entry)
+    Menu.accueil()
+
+
+def close():
+    if again(message="Voulez vous sauvegarder ? [y/n]"):
+        Save.save()
+    exit(0)
 
 
 def again(message="Voulez-vous continuer ? [y/n]") -> bool:
-    while True:
-        choice: str = input(message).lower()
-        if choice == "y":
-            return True
-        if choice == "n":
-            return False
+    choice: str = ""
+    while choice != "y" and choice != "n":
+        choice = input(message).lower()
+
+    if choice == "y":
+        return True
+    return False
+

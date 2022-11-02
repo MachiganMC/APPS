@@ -1,3 +1,6 @@
+import MDP.Entry
+
+
 class Entry:
 
     """Une entrée possedant un couple username/password lié à un service (une app ou site)"""
@@ -43,6 +46,14 @@ class Entry:
         return Entry.__all
 
     @staticmethod
+    def set_all(l: list) -> None:
+        Entry.__all = l
+
+    @staticmethod
+    def all_append(entry):
+        Entry.__all.append(entry)
+
+    @staticmethod
     def get_from_service(proposition: str) -> list:
         """Renvoie une liste des entrées filtrée par le service mis en paramètre"""
         entries_by_service: list[Entry] = []
@@ -71,6 +82,13 @@ class Entry:
                 entries_by_password.append(i)
 
         return entries_by_password
+
+    def to_dict(self) -> dict[str: str]:
+        return {"service": self.__service, "username": self.__username, "password": self.__password}
+
+    @staticmethod
+    def from_dict(d: dict):
+        return Entry(d["password"], d["username"], d["service"])
 
     def __str__(self):
         return f"{self.username} : {self.password} -> {self.service}"
