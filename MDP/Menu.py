@@ -3,7 +3,7 @@ import MDP.Fonctionalities as fct
 
 
 def accueil():
-    print("Bienvenue dans votre gestionnaire de mot de passe :")
+    print("Bienvenue dans votre gestionnaire de mot de passe !\nVoici la liste des entrées:\n")
     entries: list[Entry] = Entry.all()
     if len(entries) > 0:
         for i in range(0, len(entries)):
@@ -46,6 +46,6 @@ def accueil():
             print("Aucun choix trouvé ...")
         accueil()
 
-
-
-
+    else:
+        print("Entrée erronée ...\nVeuillez choisir une commande disponible\n")
+        accueil()

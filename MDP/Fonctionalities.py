@@ -4,7 +4,7 @@ import MDP.SaveData as Save
 
 
 def add_username() -> str:
-    return input("Veuillez entrer l'username :")
+    return input("Veuillez entrer le username :")
 
 
 def add_password() -> str:
@@ -31,15 +31,15 @@ def add_entry() -> None:
 def select_entry(param) -> Entry | None:
     entries: list[Entry] = []
     value: str = ""
-    if param == "service":
-        value = input("Veuillez indiquer le service à sélectionner")
+    if param == 1:
+        value = input("Veuillez indiquer le service à sélectionner ")
         entries = Entry.get_from_service(value)
-    elif param == "password":
-        value = input("Veuillez indiquer le password à sélectionner")
-        entries = Entry.get_from_password(value)
-    elif param == "username":
-        value = input("Veuillez indiquer le username à sélectionner")
+    elif param == 2:
+        value = input("Veuillez indiquer le username à sélectionner ")
         entries = Entry.get_from_username(value)
+    elif param == 3:
+        value = input("Veuillez indiquer le password à sélectionner ")
+        entries = Entry.get_from_password(value)
 
     if len(entries) == 0:
         return None
