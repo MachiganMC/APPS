@@ -91,5 +91,5 @@ class Entry:
         return Entry(d["password"], d["username"], d["service"])
 
     def __str__(self):
-        return f"Username: {self.username} | MDP: {self.password} -> Service: {self.service}"
+        return f"Username: {self.username} | MDP: {self.password} | Service: {self.service}"
 
