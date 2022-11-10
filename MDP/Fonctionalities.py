@@ -103,12 +103,12 @@ def close():
     exit(0)
 
 
-def again(message="Voulez-vous continuer ? [y/n]") -> bool:
+def again(message="Voulez-vous continuer ? [y/n]\n\n") -> bool:
     choice: str = ""
     while choice != "y" and choice != "n":
         choice = input(message).lower()
 
-    if choice == "y":
-        return True
-    return False
+    return choice == "y"
+
+
 
