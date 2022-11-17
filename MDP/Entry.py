@@ -66,12 +66,13 @@ class Entry:
     @staticmethod
     def get_from_username(proposition: str) -> list:
         """Renvoie une liste des entrées filtrée par un username mis en paramètre"""
-        entries_by_username: list[Entry] = []
-        for i in Entry.__all:
-            if i.username.lower() == proposition.lower():
-                entries_by_username.append(i)
-
-        return entries_by_username
+        return list(filter(lambda entry : entry.service == proposition, Entry.__all))
+        # entries_by_username: list[Entry] = []
+        # for i in Entry.__all:
+        #     if i.username.lower() == proposition.lower():
+        #         entries_by_username.append(i)
+        #
+        # return entries_by_username
 
     @staticmethod
     def get_from_password(proposition: str) -> list:
