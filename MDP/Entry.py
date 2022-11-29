@@ -2,7 +2,6 @@ import MDP.Entry
 
 
 class Entry:
-
     """Une entrée possedant un couple username/password lié à un service (une app ou site)"""
 
     __password: str
@@ -66,7 +65,7 @@ class Entry:
     @staticmethod
     def get_from_username(proposition: str) -> list:
         """Renvoie une liste des entrées filtrée par un username mis en paramètre"""
-        return list(filter(lambda entry : entry.service == proposition, Entry.__all))
+        return list(filter(lambda entry: entry.service == proposition, Entry.__all))
         # entries_by_username: list[Entry] = []
         # for i in Entry.__all:
         #     if i.username.lower() == proposition.lower():
@@ -93,4 +92,3 @@ class Entry:
 
     def __str__(self):
         return f"Username: {self.username} | MDP: {self.password} | Service: {self.service}"
-

@@ -1,0 +1,6 @@
+BACKGROUND_COLOR: str = "#202225"
+FONT_COLOR: str = "#C4C4C4"
+MAX_WIDTH: int = 1920
+MAX_HEIGHT: int = 1080
+MIN_WIDTH: int = int(MAX_WIDTH / 2)
+MIN_HEIGHT: int = int(MAX_HEIGHT / 2)
