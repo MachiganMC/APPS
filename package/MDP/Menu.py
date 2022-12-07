@@ -1,5 +1,5 @@
-from MDP.Entry import Entry
-import MDP.Fonctionalities as fct
+from package.MDP.Entry import Entry
+import package.MDP.Fonctionalities as fct
 
 
 def accueil():

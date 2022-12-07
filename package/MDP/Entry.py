@@ -1,6 +1,3 @@
-import MDP.Entry
-
-
 class Entry:
     """Une entrée possedant un couple username/password lié à un service (une app ou site)"""
 

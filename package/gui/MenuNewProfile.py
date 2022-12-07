@@ -1,6 +1,5 @@
 from tkinter import *
-from gui.Properties import *
-import os
+from package.gui.Properties import *
 
 
 class MenuNewProfile:

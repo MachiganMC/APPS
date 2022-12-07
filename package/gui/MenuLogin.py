@@ -1,5 +1,5 @@
 from tkinter import *
-from gui.Properties import BACKGROUND_COLOR, FONT_COLOR
+from package.gui.Properties import BACKGROUND_COLOR, FONT_COLOR
 from PIL import Image, ImageTk
 
 
@@ -10,7 +10,7 @@ class MenuLogin:
         self.__frame: Frame = Frame(bg=BACKGROUND_COLOR)
         self.__frame.pack(expand=1)
 
-        icon: ImageTk = Image.open("img/icon.png")
+        icon: ImageTk = Image.open("package/img/icon.png")
         icon_tk = ImageTk.PhotoImage(icon)
         icon_frame: Label = Label(self.__frame, image=icon_tk, bg=BACKGROUND_COLOR, fg=FONT_COLOR)
         icon_frame.image = icon_tk
@@ -23,14 +23,15 @@ class MenuLogin:
         pp_frame: Frame = Frame(self.__frame, bg=BACKGROUND_COLOR)
         pp_frame.pack()
 
-        image: ImageTk = Image.open("img/id-card-512-3617266879.png")
+        image: ImageTk = Image.open("package/img/id-card-512-3617266879.png")
         image = image.resize((100, 100))
         image_tk: ImageTk = ImageTk.PhotoImage(image)
 
         for i in range(5):
             pp_frame.columnconfigure(index=i, minsize=150)
             profil: Button = Button(pp_frame, text="A", font=("Impact", 40, "bold"), bg=BACKGROUND_COLOR,
-                                    fg=BACKGROUND_COLOR, command=lambda j=i: MenuLogin.on_click(j), image=image_tk)
+                                    fg=BACKGROUND_COLOR, command=lambda j=i: MenuLogin.on_click(j), image=image_tk,
+                                    border=0)
             profil.image = image_tk
             profil.grid(column=i, row=0)
             name: Label = Label(pp_frame, text=f"Profil {i}", fg=FONT_COLOR, bg=BACKGROUND_COLOR, font=("Impact", 15))
@@ -47,7 +48,7 @@ class MenuLogin:
     @staticmethod
     def new_profile():
         import __main__
-        from gui.MenuNewProfile import MenuNewProfile
+        from package.gui.MenuNewProfile import MenuNewProfile
         __main__.bw.frame.destroy()
         __main__.bw.frame = MenuNewProfile().frame
         __main__.bw.frame.pack()

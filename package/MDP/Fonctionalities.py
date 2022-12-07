@@ -1,6 +1,6 @@
-from MDP.Entry import Entry
-import MDP.Menu as Menu
-import MDP.SaveData as Save
+from package.MDP.Entry import Entry
+import package.MDP.Menu as Menu
+from package import MDP as Save
 
 
 def add_username() -> str:
