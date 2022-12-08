@@ -4,3 +4,5 @@ MAX_WIDTH: int = 1920
 MAX_HEIGHT: int = 1080
 MIN_WIDTH: int = int(MAX_WIDTH / 2)
 MIN_HEIGHT: int = int(MAX_HEIGHT / 2)
+
+TEXT_PROPERTIES = {"font": ("Impact", 35, "bold"), "bg": BACKGROUND_COLOR, "fg": FONT_COLOR}

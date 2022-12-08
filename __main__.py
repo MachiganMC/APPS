@@ -12,8 +12,8 @@ if __name__ == '__main__':
     except FileExistsError:
         pass
 
-    # bw.mainloop()
-    p: Profil = Profil.new_profil("simon", "tets", Question(0, "moiu"))
-    p.save()
-    p2 = Profil.get_from_question("simon", "moiu")
-    print(p2.login)
+    bw.mainloop()
+    # p: Profil = Profil.new_profil("simon", "tets", Question(0, "moiu"))
+    # p.save()
+    # p2 = Profil.get_from_question("simon", "moiu")
+    # print(p2.login)

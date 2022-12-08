@@ -1,5 +1,5 @@
 from tkinter import *
-from package.gui.Properties import BACKGROUND_COLOR, FONT_COLOR
+from package.gui.Properties import BACKGROUND_COLOR, FONT_COLOR, TEXT_PROPERTIES
 from PIL import Image, ImageTk
 
 
@@ -16,8 +16,7 @@ class MenuLogin:
         icon_frame.image = icon_tk
         icon_frame.pack(expand=1)
 
-        label: Label = Label(self.__frame, text="Qui est-ce ?", font=("Arial", 35, "bold"), fg="#C4C4C4",
-                             bg=BACKGROUND_COLOR)
+        label: Label = Label(self.__frame, text="Qui est-ce ?", **TEXT_PROPERTIES)
         label.pack(pady=50)
 
         pp_frame: Frame = Frame(self.__frame, bg=BACKGROUND_COLOR)
@@ -27,15 +26,20 @@ class MenuLogin:
         image = image.resize((100, 100))
         image_tk: ImageTk = ImageTk.PhotoImage(image)
 
-        for i in range(5):
-            pp_frame.columnconfigure(index=i, minsize=150)
-            profil: Button = Button(pp_frame, text="A", font=("Impact", 40, "bold"), bg=BACKGROUND_COLOR,
-                                    fg=BACKGROUND_COLOR, command=lambda j=i: MenuLogin.on_click(j), image=image_tk,
-                                    border=0)
-            profil.image = image_tk
-            profil.grid(column=i, row=0)
-            name: Label = Label(pp_frame, text=f"Profil {i}", fg=FONT_COLOR, bg=BACKGROUND_COLOR, font=("Impact", 15))
-            name.grid(column=i, row=1)
+        from package.MDP.Profil import Profil
+        all_profil: list[str] = Profil.all_profil_str()
+        for profil_name in all_profil:
+            index: int = all_profil.index(profil_name)
+            pp_frame.columnconfigure(index=index, minsize=150)
+            profil_button: Button = Button(pp_frame, text="A", font=("Impact", 40, "bold"), bg=BACKGROUND_COLOR,
+                                           fg=BACKGROUND_COLOR, command=lambda j=profil_name: MenuLogin.on_click(j),
+                                           image=image_tk,
+                                           border=0)
+            profil_button.image = image_tk
+            profil_button.grid(column=index, row=0)
+            name: Label = Label(pp_frame, text=profil_name, fg=FONT_COLOR, bg=BACKGROUND_COLOR,
+                                font=("Impact", 15))
+            name.grid(column=index, row=1)
 
         new_profil: Button = Button(pp_frame, text="+", font=("Impact", 40, "bold"), bg="#C4C4C4", fg=BACKGROUND_COLOR,
                                     command=lambda: MenuLogin.new_profile())
