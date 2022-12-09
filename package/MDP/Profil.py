@@ -83,7 +83,6 @@ class Profil:
     def get_from_question(cls, name_profil: str, answer: str) -> Profil:
         with open(f"data/{name_profil}.alz", "r") as file:
             j_file: json = json.load(file)
-            print(Question.all_questions[j_file[2]])
             try:
                 decrypt: str | bool = cryptocode.decrypt(j_file[1], hashlib.md5(answer.encode()).hexdigest())
                 if not decrypt:

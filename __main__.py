@@ -13,7 +13,7 @@ if __name__ == '__main__':
         pass
 
     bw.mainloop()
-    # p: Profil = Profil.new_profil("simon", "tets", Question(0, "moiu"))
-    # p.save()
+    p: Profil = Profil.new_profil("Corentin", "rouge", Question(0, "bleu"))
+    p.save()
     # p2 = Profil.get_from_question("simon", "moiu")
     # print(p2.login)

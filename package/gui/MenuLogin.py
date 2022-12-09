@@ -9,6 +9,8 @@ class MenuLogin:
 
         self.__frame: Frame = Frame(bg=BACKGROUND_COLOR)
         self.__frame.pack(expand=1)
+        self.__formulaire: Frame = Frame(self.__frame, bg=BACKGROUND_COLOR)
+        self.__formulaire.pack(side="left")
 
         icon: ImageTk = Image.open("package/img/icon.png")
         icon_tk = ImageTk.PhotoImage(icon)
@@ -32,7 +34,7 @@ class MenuLogin:
             index: int = all_profil.index(profil_name)
             pp_frame.columnconfigure(index=index, minsize=150)
             profil_button: Button = Button(pp_frame, text="A", font=("Impact", 40, "bold"), bg=BACKGROUND_COLOR,
-                                           fg=BACKGROUND_COLOR, command=lambda j=profil_name: MenuLogin.on_click(j),
+                                           fg=BACKGROUND_COLOR, command=lambda j=profil_name: self.on_click(j),
                                            image=image_tk,
                                            border=0)
             profil_button.image = image_tk
