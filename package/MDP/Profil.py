@@ -13,8 +13,6 @@ from package.MDP.Entry import Entry
 
 class Profil:
     __login: str
-    __password_hash: str
-    __answer_hash: str
     __question_index: int
     __entries: list[Entry]
 
@@ -26,8 +24,6 @@ class Profil:
         self = Profil()
         self.__login = login
         self.__question_index = question.index
-        self.__password_hash = hashlib.md5(password.encode()).hexdigest()
-        self.__answer_hash = hashlib.md5(question.answer.encode()).hexdigest()
         self.__entries = []
         return self
 
@@ -39,20 +35,20 @@ class Profil:
         self.__entries = j_data["entries"]
         return self
 
-    def encrypt(self) -> (str, str):
+    def encrypt(self, password_hash, answer_hash) -> (str, str):
         data_dict: dict = {
             "login": self.__login,
             "entries": self.__entries,
             "question_index": self.__question_index
         }
         json_data: str = json.dumps(data_dict, ensure_ascii=False).__str__()
-        crypt_pw: str = cryptocode.encrypt(json_data, self.__password_hash)
-        crypt_question: str = cryptocode.encrypt(json_data, self.__answer_hash)
+        crypt_pw: str = cryptocode.encrypt(json_data, password_hash)
+        crypt_question: str = cryptocode.encrypt(json_data, answer_hash)
         return crypt_pw, crypt_question
 
-    def save(self) -> None:
+    def save(self, password_hash, answer_hash) -> None:
         with open(f"data/{self.__login}.alz", "w") as j_file:
-            crypt: tuple[str, str] = self.encrypt()
+            crypt: tuple[str, str] = self.encrypt(password_hash, answer_hash)
             j_file.write(json.dumps([crypt[0], crypt[1], self.__question_index]))
 
     @classmethod
@@ -92,14 +88,17 @@ class Profil:
                 raise ValueError("Invalid answer")
             return Profil.get_from_dict(j_data)
 
+    @classmethod
+    def get_question_from_str(cls, name_profile: str) -> str:
+        try:
+            with open(f"data/{name_profile}.alz", "r") as file:
+                j_file: json = json.load(file)
+                return Question.all_questions[j_file[2]]
+        except FileNotFoundError:
+            raise ValueError(f"Profile {name_profile} inexistant")
+
     @property
     def login(self) -> str:
         return self.__login
 
-    @property
-    def password_hash(self) -> str:
-        return self.__password_hash
 
-    @property
-    def answer_hash(self) -> str:
-        return self.__answer_hash

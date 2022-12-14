@@ -8,8 +8,9 @@ class BasicWindow(Tk):
         super().__init__()
 
         self.title("Alzheimer Password Program Solution")
-        self.resizable(True, True)
         self.iconbitmap("package/img/icon-a.ico")
+        self.resizable(True, True)
+        self.state("zoomed")
         self.minsize(width=MIN_WIDTH, height=MIN_HEIGHT)
         self.maxsize(width=MAX_WIDTH, height=MAX_HEIGHT)
         entry = Entry()
@@ -25,3 +26,4 @@ class BasicWindow(Tk):
     @frame.setter
     def frame(self, frame: Frame):
         self.__frame = frame
+

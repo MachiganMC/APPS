@@ -9,8 +9,8 @@ class MenuLogin:
 
         self.__frame: Frame = Frame(bg=BACKGROUND_COLOR)
         self.__frame.pack(expand=1)
-        self.__formulaire: Frame = Frame(self.__frame, bg=BACKGROUND_COLOR)
-        self.__formulaire.pack(side="left")
+        self.__connect: Frame = Frame(self.__frame, bg=BACKGROUND_COLOR)
+        self.__connect.pack(side="bottom")
 
         icon: ImageTk = Image.open("package/img/icon.png")
         icon_tk = ImageTk.PhotoImage(icon)
@@ -43,9 +43,12 @@ class MenuLogin:
                                 font=("Impact", 15))
             name.grid(column=index, row=1)
 
-        new_profil: Button = Button(pp_frame, text="+", font=("Impact", 40, "bold"), bg="#C4C4C4", fg=BACKGROUND_COLOR,
-                                    command=lambda: MenuLogin.new_profile())
-        new_profil.grid(column=6, row=0)
+        if len(Profil.all_profil_str()) <= 5:
+            new_profil: Button = Button(pp_frame, text="+", font=("Impact", 40, "bold"), bg="#C4C4C4",
+                                        fg=BACKGROUND_COLOR, command=lambda: MenuLogin.new_profile())
+            new_profil.grid(column=6, row=0)
+
+        self.__error_login = None
 
     @staticmethod
     def on_click(name_profile: int):
