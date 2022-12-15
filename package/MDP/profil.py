@@ -4,11 +4,11 @@ import os
 
 import cryptocode
 
-from package.MDP.Question import Question
+from package.MDP.question import Question
 import hashlib
 import json
 
-from package.MDP.Entry import Entry
+from package.MDP.entry import Entry
 
 
 class Profil:

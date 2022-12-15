@@ -1,10 +1,10 @@
 from tkinter import *
-from package.gui.Properties import *
+from package.gui.properties import *
 
 
 class BasicWindow(Tk):
     def __init__(self):
-        from package.gui.MenuLogin import MenuLogin
+        from package.gui.menu_login import MenuLogin
         super().__init__()
 
         self.title("Alzheimer Password Program Solution")

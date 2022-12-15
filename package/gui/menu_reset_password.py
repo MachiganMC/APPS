@@ -1,8 +1,8 @@
 import hashlib
 from tkinter import *
 
-from package.gui.Properties import *
-from package.MDP.Profil import Profil
+from package.gui.properties import *
+from package.MDP.profil import Profil
 
 text_properties: dict = TEXT_PROPERTIES | {"font": ("Impact", 15)}
 
@@ -17,7 +17,7 @@ class MenuResetPassword:
 
         back_button: Button = Button(self.__frame, text="Retour au menu connexion", **text_properties,
                                      command=lambda: MenuResetPassword.return_menu_login())
-        back_button.pack(side="left", anchor=NW, pady=10)
+        back_button.pack(side="top", anchor=W, pady=10)
 
         label: Label = Label(self.__frame, text=f"Réinitialiser le mot de passe de {name_profile} :", **TEXT_PROPERTIES)
         label.pack(expand=1)
@@ -31,7 +31,7 @@ class MenuResetPassword:
             question = Profil.get_question_from_str(name_profile)
         except ValueError:
             from __main__ import bw
-            from package.gui.MenuLogin import MenuLogin
+            from package.gui.menu_login import MenuLogin
             bw.frame.destroy()
             bw.frame = MenuLogin().frame
             bw.frame.pack()
@@ -94,7 +94,7 @@ class MenuResetPassword:
 
     def reset_password(self, profil: Profil, answer: str):
         from __main__ import bw
-        from package.gui.MenuLogin import MenuLogin
+        from package.gui.menu_login import MenuLogin
         if self.__answer.get() == "" or self.__answer_conf.get() == "":
             self.__response["text"] = "Tous les champs n'ont pas été remplis"
             return
@@ -117,7 +117,7 @@ class MenuResetPassword:
     @classmethod
     def return_menu_login(cls):
         from __main__ import bw
-        from package.gui.MenuLogin import MenuLogin
+        from package.gui.menu_login import MenuLogin
         bw.frame.destroy()
         bw.frame = MenuLogin().frame
         bw.frame.pack()

@@ -1,7 +1,7 @@
 from tkinter import *
 
-from package.MDP.Profil import Profil
-from package.gui.Properties import *
+from package.MDP.profil import Profil
+from package.gui.properties import *
 
 
 class MainMenu:
@@ -11,6 +11,10 @@ class MainMenu:
 
         label: Label = Label(self.__frame, text="Menu des mdp", **TEXT_PROPERTIES)
         label.pack()
+
+        frame_info: Frame = Frame(self.__frame, bg=BACKGROUND_COLOR)
+        frame_info.pack(side='top')
+
 
     @property
     def frame(self) -> Frame:

@@ -1,9 +1,9 @@
 import hashlib
 import os
 
-from package.MDP.Question import Question
-from package.gui.BasicWindow import BasicWindow
-from package.MDP.Profil import Profil
+from package.MDP.question import Question
+from package.gui.basic_window import BasicWindow
+from package.MDP.profil import Profil
 
 bw: BasicWindow = BasicWindow()
 if __name__ == '__main__':

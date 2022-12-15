@@ -1,5 +1,5 @@
 import json
-from package.MDP.Entry import Entry
+from package.MDP.entry import Entry
 
 
 def save():

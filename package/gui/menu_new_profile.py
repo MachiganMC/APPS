@@ -1,9 +1,10 @@
+import hashlib
 from tkinter import *
 from tkinter import ttk
 
-from package.MDP.Profil import Profil
-from package.MDP.Question import Question
-from package.gui.Properties import *
+from package.MDP.profil import Profil
+from package.MDP.question import Question
+from package.gui.properties import *
 
 
 class MenuNewProfile:
@@ -108,7 +109,10 @@ class MenuNewProfile:
             self.__result["text"] = "Le nom ne peut pas contenir de point ou d'espace"
             return
 
-        Profil.new_profil(name, self.__pw_entry.get(), Question(question_index, self.__entry_answer.get())).save()
+        Profil.new_profil(name, self.__pw_entry.get(), Question(question_index, self.__entry_answer.get())).save(
+            hashlib.md5(self.__pw_entry.get().encode()).hexdigest(),
+            hashlib.md5(self.__entry_answer.get().encode()).hexdigest()
+        )
         self.__result["fg"] = "green"
         self.__result["text"] = "Profil créé avec succès"
 
@@ -123,7 +127,7 @@ class MenuNewProfile:
     @classmethod
     def back(cls):
         from __main__ import bw
-        from package.gui.MenuLogin import MenuLogin
+        from package.gui.menu_login import MenuLogin
         bw.frame.destroy()
         bw.frame = MenuLogin().frame
         bw.frame.pack()

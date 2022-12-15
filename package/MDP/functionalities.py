@@ -1,5 +1,5 @@
-from package.MDP.Entry import Entry
-import package.MDP.Menu as Menu
+from package.MDP.entry import Entry
+import package.MDP.menu as Menu
 from package import MDP as Save
 
 
