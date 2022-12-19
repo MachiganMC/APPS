@@ -8,13 +8,13 @@ from package.MDP.question import Question
 import hashlib
 import json
 
-from package.MDP.entry import Entry
+from package.MDP.data import Data
 
 
 class Profil:
     __login: str
     __question_index: int
-    __entries: list[Entry]
+    __entries: list[Data]
 
     def __init__(self) -> None:
         pass
@@ -32,13 +32,19 @@ class Profil:
         self = Profil()
         self.__login = j_data["login"]
         self.__question_index = j_data["question_index"]
-        self.__entries = j_data["entries"]
+        self.__entries: list[Data] = []
+        for entry_dict in j_data["entries"]:
+            self.__entries.append(Data.from_dict(entry_dict))
         return self
 
     def encrypt(self, password_hash, answer_hash) -> (str, str):
+        entries: list[dict[str: str]] = []
+        for entry in self.__entries:
+            entries.append(entry.to_dict())
+
         data_dict: dict = {
             "login": self.__login,
-            "entries": self.__entries,
+            "entries": entries,
             "question_index": self.__question_index
         }
         json_data: str = json.dumps(data_dict, ensure_ascii=False).__str__()
@@ -101,4 +107,11 @@ class Profil:
     def login(self) -> str:
         return self.__login
 
+    @property
+    def entries(self) -> list[Data]:
+        return self.__entries
+
+
+def hash_str(to_hash: str) -> str:
+    return hashlib.md5(to_hash.encode()).hexdigest()
 

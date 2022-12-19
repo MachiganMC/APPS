@@ -1,10 +1,10 @@
-from package.MDP.entry import Entry
+from package.MDP.data import Data
 import package.MDP.functionalities as fct
 
 
 def accueil():
     print("Bienvenue dans votre gestionnaire de mot de passe !\nVoici la liste des entrées:\n")
-    entries: list[Entry] = Entry.all()
+    entries: list[Data] = Data.all()
     if len(entries) > 0:
         for i in range(0, len(entries)):
             print(f"\t{i + 1}) {entries[i]}")
@@ -23,13 +23,13 @@ def accueil():
         fct.close()
     if choice == 1:
         fct.add_entry()
-    if choice == 2 and len(Entry.all()) > 0:
+    if choice == 2 and len(Data.all()) > 0:
         print("Sélectionner le champ sur lequel vous voulez filtrer :")
         print("\t1. Le service")
         print("\t2. Le username")
         print("\t3. Le mot de passe")
         choice_attribute: int = int(input(""))
-        entry: Entry = fct.select_entry(choice_attribute)
+        entry: Data = fct.select_entry(choice_attribute)
         if entry is None:
             print("Aucune entrée n'a été trouvée ...\n")
             accueil()

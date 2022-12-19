@@ -1,11 +1,11 @@
 import json
-from package.MDP.entry import Entry
+from package.MDP.data import Data
 
 
 def save():
     print("Début de la sauvegarde ...")
     json_list: list[dict[str: str]] = []
-    for entry in Entry.all():
+    for entry in Data.all():
         json_list.append(entry.to_dict())
     try:
         with open("save.json", "w") as file:
@@ -17,14 +17,14 @@ def save():
 
 
 def load():
-    l: list[Entry] = []
+    l: list[Data] = []
     try:
         with open("save.json", "r") as file:
             j_file: list = json.load(file)
             for i in j_file:
-                l.append(Entry.from_dict(i))
+                l.append(Data.from_dict(i))
 
-        Entry.set_all(l)
+        Data.set_all(l)
     except FileNotFoundError:
         print("Fichier introuvable ...")
     except IOError:

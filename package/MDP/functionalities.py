@@ -1,4 +1,4 @@
-from package.MDP.entry import Entry
+from package.MDP.data import Data
 import package.MDP.menu as Menu
 from package import MDP as Save
 
@@ -16,7 +16,7 @@ def add_service() -> str:
 
 
 def add_entry() -> None:
-    entry: Entry = Entry(
+    entry: Data = Data(
         add_password(),
         add_username(),
         add_service()
@@ -28,18 +28,18 @@ def add_entry() -> None:
         Menu.accueil()
 
 
-def select_entry(param) -> Entry | None:
-    entries: list[Entry] = []
+def select_entry(param) -> Data | None:
+    entries: list[Data] = []
     value: str = ""
     if param == 1:
         value = input("Veuillez indiquer le service à sélectionner ")
-        entries = Entry.get_from_service(value)
+        entries = Data.get_from_service(value)
     elif param == 2:
         value = input("Veuillez indiquer le username à sélectionner ")
-        entries = Entry.get_from_username(value)
+        entries = Data.get_from_username(value)
     elif param == 3:
         value = input("Veuillez indiquer le password à sélectionner ")
-        entries = Entry.get_from_password(value)
+        entries = Data.get_from_password(value)
 
     if len(entries) == 0:
         return None
@@ -62,15 +62,15 @@ def select_entry(param) -> Entry | None:
     return entries[choice - 1]
 
 
-def remove_entry(entry: Entry):
+def remove_entry(entry: Data):
     if again(message="Êtes-vous sûr de vouloir supprimer cette entrée ? [y/n]"):
-        Entry.all().remove(entry)
+        Data.all().remove(entry)
         print(f"L'entrée suivante \"{entry}\" a été supprimée")
         return
     Menu.accueil()
 
 
-def modify_entry(entry: Entry) -> None:
+def modify_entry(entry: Data) -> None:
     print(f"Quelle donnée de l'entrée \"{entry}\" voulez-vous modifier ?")
     print("\t1. Le service")
     print("\t2. Le username")
