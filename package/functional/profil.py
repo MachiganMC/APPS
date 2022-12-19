@@ -20,7 +20,24 @@ class Profil:
         pass
 
     @classmethod
-    def new_profil(cls, login: str, password: str, question: Question) -> Profil:
+    def new_profil(cls, name: str, question: Question) -> Profil:
+        """
+        Auteur : Simon Maes
+        Dernière modification : 19 décembre 2022
+        Permet d'instancier un nouvel objet Profil.
+        PRE :
+            - login : ne doit pas être une chaîne de caractère vide et ne doit pas être déjà
+            présent dans Profil#all_profil_str()
+            - question : ne doit pas être None
+
+        POST :
+            - Instancie un nouvel objet Profil
+            - Lance une ValueError si les préconditions ne sont pas respectées.
+        """
+        if name is None or name == "":
+            raise ValueError("Nom de profil invalide")
+        if name in Profil.all_profil_str():
+            raise ValueError(f"Le nom de profil {name} existe déjà")
         self = Profil()
         self.__name = name
         self.__question_index = question.index
@@ -52,6 +69,27 @@ class Profil:
         return self
 
     def encrypt(self, password_hash, answer_hash) -> (str, str):
+        """
+        Auteur : Antoine Moens Pennewaert
+        Dernière modification : 19 décembre 2022
+
+        → Crypte le fichier du profil en question en deux versions,
+        l'une crypté avec le password hashé comme clé de cryptage,
+        l'autre crypté avec la réponse hashée comme clé de cryptage.
+
+        PRE :
+            - password_hash et answer_ash ne doivent pas être vide.
+        POST :
+            - return crypt_pw, la chaine contenant le résultat du criptage graçe au password hashé.
+            - return crypt_question, la chaine contenant le résultat du criptage
+            graçe à la réponse à la question hashée.
+            - Raise ValueError lorsque password_hash ou answer_hash sont vides.
+        """
+        if password_hash == "":
+            raise ValueError("Mot de passe vide")
+        if answer_hash == "":
+            raise ValueError("Réponse à la question vide")
+
         entries: list[dict[str: str]] = []
         for entry in self.__entries:
             entries.append(entry.to_dict())
@@ -101,16 +139,33 @@ class Profil:
 
     @classmethod
     def get_from_password(cls, name_profil: str, pw: str) -> Profil:
-        with open(f"data/{name_profil}.alz", "r") as file:
-            j_file: json = json.load(file)
-            try:
-                decrypt: str | bool = cryptocode.decrypt(j_file[0], hashlib.md5(pw.encode()).hexdigest())
-                if not decrypt:
+        """
+        Auteur : Antoine Moens Pennewaert
+        Dernière modification : 19 décembre 2022
+
+        → Va décrypter la partie du fichier du profil crypter avec le password hashé et
+
+        PRE :
+            - le profil a dû avoir déjà crypté son fichier.
+        POST :
+            - return Profil.get_from_dict(j_data), une redéfinition du profil avec les données décryptée utilisable pour
+            la suite du code.
+            - Raise ValueError si le password donner n'a pas permis de correctement décrypter ou que le profil
+            renseigner est inexistant.
+        """
+        try:
+            with open(f"data/{name_profil}.alz", "r") as file:
+                j_file: json = json.load(file)
+                try:
+                    decrypt: str | bool = cryptocode.decrypt(j_file[0], hashlib.md5(pw.encode()).hexdigest())
+                    if not decrypt:
+                        raise ValueError("Invalid password")
+                    j_data: dict = json.loads(decrypt)
+                except TypeError:
                     raise ValueError("Invalid password")
-                j_data: dict = json.loads(decrypt)
-            except TypeError:
-                raise ValueError("Invalid password")
-            return Profil.get_from_dict(j_data)
+                return Profil.get_from_dict(j_data)
+        except FileNotFoundError:
+            raise ValueError("Profil inexistant")
 
     @classmethod
     def get_from_question(cls, name_profil: str, answer: str) -> Profil:
@@ -127,6 +182,19 @@ class Profil:
 
     @classmethod
     def get_question_from_str(cls, name_profile: str) -> str:
+        """
+        Auteur : Antoine Moens Pennewaert
+        Dernière modification : 19 décembre 2022
+        
+        → Permet de trouver la question de récupération choisie du profil
+
+        PRE :
+            - le profil doit avoir choisi une question de récupération.
+        POST :
+            - return Question.all_questions[j_file[2]], l'index de la question dans la liste des questions de
+            récupération disponible.
+            - Raise ValueError si le profil est inexistant.
+        """
         try:
             with open(f"data/{name_profile}.alz", "r") as file:
                 j_file: json = json.load(file)
@@ -145,4 +213,3 @@ class Profil:
 
 def hash_str(to_hash: str) -> str:
     return hashlib.md5(to_hash.encode()).hexdigest()
-

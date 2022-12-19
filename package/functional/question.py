@@ -10,6 +10,22 @@ class Question:
     ___index: int
 
     def __init__(self, index: int, answer: str):
+        """
+        Auteur : Antoine Moens Pennewaert
+        Dernière modification :
+
+        → Crée une instance d'un objet question avec la question, son index dans la liste des questions et la réponse
+        donnée.
+
+        PRE :
+            - answer ne doit pas être vide.
+            - index doit être dans la range de la liste des questions.
+        POST :
+            - Crée un objet question.
+            - Raise ValueError si l'index de la question est hors de la liste des questions ou si answer est vide.
+        """
+        if answer == "":
+            raise ValueError("Réponse de la question vide")
         try:
             self.__question = Question.all_questions[index]
             self.___index = index
