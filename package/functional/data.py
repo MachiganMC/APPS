@@ -36,6 +36,19 @@ class Data:
         self.__comment = comment
 
     def to_dict(self) -> dict[str: str]:
+        """
+        Auteur : Corentin Koninckx
+        Dernière modification : 19 décembre 2022
+
+        Permet de créer un dictionnaire contenant le username, le password, le service et le comment de l'instance Data
+        en question
+
+        PRE :
+            - Pas de prérequis
+        POST :
+            - Renvoie un dictionnaire avec les clés suivantes :
+                - username, password, service, comment
+        """
         return {
             "username": self.__username,
             "password": self.__password,

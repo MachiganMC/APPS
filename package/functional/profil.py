@@ -128,6 +128,19 @@ class Profil:
 
     @classmethod
     def all_profil_str(cls) -> list[str]:
+        """
+        Auteur : Corentin Koninckx
+        Dernière modification : 19 décembre 2022
+
+        Permet de récupérer une liste de tous les noms de profil, la fonction boucle dans tous les fichiers contenus
+        dans la directory et regroupe ceux ayant comme extension ".alz" (fichiers de profil), découpe le nom des
+        fichiers pour enlever leur extension et les injecte dans une liste all_profil qui sera retournée
+
+        PRE :
+            - pas de prérequis
+        POST :
+            - retourne une liste ayant comme éléments les noms de profil
+        """
         all_profil: list[str] = []
         try:
             for file in os.listdir(path=f"{os.getcwd()}\\data"):
@@ -169,6 +182,23 @@ class Profil:
 
     @classmethod
     def get_from_question(cls, name_profil: str, answer: str) -> Profil:
+        """
+        Auteur : Corentin Koninckx
+        Dernière modification : 19 décembre 2022
+
+        Permet d'ouvrir en lecture un fichier "name_profil.alz", dans une variable decrypt sera contenu le profil crypté
+        avec le answer_hash qui sera décrypté avec la clé de décryptage, si le décryptage ne se fait pas, decrypt
+        vaudra false et provoquera une ValueError, si une TypeError survient alors cela provoquera aussi une ValueError.
+        La fonction retournera le profil concerné
+
+        PRE :
+            - name_profil doit être défini
+            - answer doit être défini
+        POST :
+            - renvoie un profil
+            - renvoie ValueError si la réponse du profil crypté est invalide
+
+        """
         with open(f"data/{name_profil}.alz", "r") as file:
             j_file: json = json.load(file)
             try:
@@ -179,6 +209,7 @@ class Profil:
             except TypeError:
                 raise ValueError("Réponse invalide")
             return Profil.get_from_dict(j_data)
+
 
     @classmethod
     def get_question_from_str(cls, name_profile: str) -> str:

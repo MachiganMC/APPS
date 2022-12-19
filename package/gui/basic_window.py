@@ -4,6 +4,20 @@ from package.gui.properties import *
 
 class BasicWindow(Tk):
     def __init__(self):
+        """
+        Auteur : Corentin Koninckx
+        Dernière modification : 19 décembre 2022
+
+        Permet de créer une nouvelle fenêtre avec certaines propriétés :
+            - titre = Alzheimer Password Program Solution,
+            - icône = à l'image se trouvant dans "img/icon-a.ico",
+            - taille non ajustable,
+            - taille fenêtre maximum = valeur de properties.py
+
+        POST :
+            - lance une FileNotFoundError si l'icône n'est pas trouvée
+            - un nouvel objet BasicWindow est instancié
+        """
         from package.gui.menu_login import MenuLogin
         super().__init__()
 
