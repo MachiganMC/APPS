@@ -66,6 +66,23 @@ class MainMenu:
         self.__result_add.pack()
 
     def show_entries(self, page: int) -> None:
+        """
+        Auteur : Simon Maes
+        Dernière modification : 19 décembre 2022
+        Permet d'update le contenu de self.__frame_entries_parent avec les nouvelles valeurs de la liste des
+        data de self.__profil.
+        PRE :
+            - page doit être positif et plus petit ou égal à self.max_page() - 1
+
+        POST :
+            - réécrit tous les éléments de self.__frame_entries_parent
+            - lance une ValueError si les préconditions ne sont pas respectées.
+        """
+        if page < 0:
+            raise ValueError("Pas invalide (négative)")
+        if page > self.max_page() + 1:
+            raise ValueError(f"Pas invalide (trop grande max {self.max_page() - 1}")
+
         self.__page = page
         for widget in self.__frame_entries_parent.winfo_children():
             widget.destroy()
@@ -101,7 +118,7 @@ class MainMenu:
         Label(frame_entries, text="Commentaire", **text_properties | highlight_properties) \
             .grid(row=0, column=4, ipadx=150)
 
-        image_trash: ImageTk = Image.open("package/img/trash.png")
+        image_trash: ImageTk = Image.open("img/trash.png")
         image_trash = image_trash.resize((25, 25))
         image_trash_tk: ImageTk = ImageTk.PhotoImage(image_trash)
         for i in range(ELEMENT_PER_PAGE * page, ELEMENT_PER_PAGE * (page + 1)):
@@ -152,12 +169,40 @@ class MainMenu:
         bw.frame = MenuLogin().frame
         bw.frame.pack()
 
-    def click_delete(self, row: int, account: Data, frame_entries: Frame, old_button: Button) -> None:
-        image_trash_confirm: ImageTk = Image.open("package/img/trash_confirm.png")
+    def click_delete(self, row: int, data: Data, frame_entries: Frame, old_button: Button) -> None:
+        """
+        Auteur : Antoine Moens Pennewaert
+        Dernière modification : 20 décembre 2022
+
+        → Supprimer une entrée en cliquant sur un bouton en forme de poubelle,
+            - row -> la ligne de l'entrée.
+            - data -> l'objet qui va être supprimée
+            - old_button -> le bouton qui va être remplacé par une autre image de bouton.
+            - frame_entries : la frame qui contient le tableau widget de toutes les data.
+        PRE :
+            - row doit être positif ou égal à 0
+            - data ne doit pas être None
+            - frame_entries ne doit pas être None
+            - old_button ne doit pas être None
+        POST :
+            - lance une FileNotFoundError si l'image "img/trash_confirm.png" n'est pas trouvée
+            - l'entrée est supprimée.
+        """
+
+        if row < 0:
+            raise ValueError("Row doit être positif")
+        if data is None:
+            raise ValueError("Account ne doit pas être égal à None")
+        if frame_entries is None:
+            raise ValueError("frame_entries ne doit pas être égal à None")
+        if old_button is None:
+            raise ValueError("old_button ne doit pas être égal à None")
+
+        image_trash_confirm: ImageTk = Image.open("img/trash_confirm.png")
         image_trash_confirm = image_trash_confirm.resize((25, 25))
         image_trash_confirm_tk: ImageTk = ImageTk.PhotoImage(image_trash_confirm)
         button: Button = Button(frame_entries, bg=BACKGROUND_COLOR, image=image_trash_confirm_tk,
-                                command=lambda: self.delete(account))
+                                command=lambda: self.delete(data))
         old_button.image = image_trash_confirm_tk
         button.grid(row=row, column=5)
 

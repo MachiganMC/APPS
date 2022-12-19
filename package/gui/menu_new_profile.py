@@ -109,7 +109,7 @@ class MenuNewProfile:
             self.__result["text"] = "Le nom ne peut pas contenir de point ou d'espace"
             return
 
-        Profil.new_profil(name, self.__pw_entry.get(), Question(question_index, self.__entry_answer.get())).save(
+        Profil.new_profil(name, Question(question_index, self.__entry_answer.get())).save(
             hashlib.md5(self.__pw_entry.get().encode()).hexdigest(),
             hashlib.md5(self.__entry_answer.get().encode()).hexdigest()
         )

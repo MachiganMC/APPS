@@ -28,7 +28,10 @@ question de récupération configurée à la création du profil.
 
 Pour utiliser **APPS**, vous allez devoir installer le fichier exécutable
 se trouvant dans les 
-[releases](https://github.com/MachiganMC/Projet-Dory/releases).
+[releases](https://github.com/MachiganMC/Projet-Dory/releases). 
+Il ne faut pas oublier de prendre le dossier des images se trouvant 
+dans le dossier
+[img](https://github.com/MachiganMC/Projet-Dory/tree/main/img) du GitHub
 
 Si vous voulez récupérer le code source, vous pouvez faire un
 `git clone https://github.com/MachiganMC/Projet-Dory.git` et télécharger

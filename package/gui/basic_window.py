@@ -8,12 +8,11 @@ class BasicWindow(Tk):
         super().__init__()
 
         self.title("Alzheimer Password Program Solution")
-        self.iconbitmap("package/img/icon-a.ico")
-        self.resizable(True, True)
+        self.iconbitmap("img/icon-a.ico")
+        self.resizable(False, False)
         self.state("zoomed")
         self.minsize(width=MIN_WIDTH, height=MIN_HEIGHT)
         self.maxsize(width=MAX_WIDTH, height=MAX_HEIGHT)
-        entry = Entry()
         self.config(bg=BACKGROUND_COLOR)
 
         self.__frame = MenuLogin().frame

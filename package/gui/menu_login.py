@@ -11,7 +11,7 @@ class MenuLogin:
         self.__connect: Frame = Frame(self.__frame, bg=BACKGROUND_COLOR)
         self.__connect.pack(side="bottom")
 
-        icon: ImageTk = Image.open("package/img/icon.png")
+        icon: ImageTk = Image.open("img/icon.png")
         icon_tk = ImageTk.PhotoImage(icon)
         icon_frame: Label = Label(self.__frame, image=icon_tk, bg=BACKGROUND_COLOR, fg=FONT_COLOR)
         icon_frame.image = icon_tk
@@ -23,7 +23,7 @@ class MenuLogin:
         pp_frame: Frame = Frame(self.__frame, bg=BACKGROUND_COLOR)
         pp_frame.pack()
 
-        image: ImageTk = Image.open("package/img/id-card-512-3617266879.png")
+        image: ImageTk = Image.open("img/id-card-512-3617266879.png")
         image = image.resize((100, 100))
         image_tk: ImageTk = ImageTk.PhotoImage(image)
 
@@ -43,7 +43,7 @@ class MenuLogin:
             name.grid(column=index, row=1)
 
         if len(Profil.all_profil_str()) <= 5:
-            image_plus: ImageTk = Image.open("package/img/+.png")
+            image_plus: ImageTk = Image.open("img/+.png")
             image_plus = image_plus.resize((100, 100))
             image_plus_tk: ImageTk = ImageTk.PhotoImage(image_plus)
             new_profil: Button = Button(pp_frame, image=image_plus_tk,
