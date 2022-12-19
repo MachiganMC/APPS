@@ -2,7 +2,7 @@ import hashlib
 from tkinter import *
 
 from package.gui.properties import *
-from package.MDP.profil import Profil
+from package.functional.profil import Profil
 
 text_properties: dict = TEXT_PROPERTIES | {"font": ("Impact", 15)}
 

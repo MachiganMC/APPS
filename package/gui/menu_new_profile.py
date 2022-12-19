@@ -2,8 +2,8 @@ import hashlib
 from tkinter import *
 from tkinter import ttk
 
-from package.MDP.profil import Profil
-from package.MDP.question import Question
+from package.functional.profil import Profil
+from package.functional.question import Question
 from package.gui.properties import *
 
 

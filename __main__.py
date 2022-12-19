@@ -1,11 +1,11 @@
 import hashlib
 import os
 
-from package.MDP.data import Data
-from package.MDP.profil import hash_str
-from package.MDP.question import Question
+from package.functional.data import Data
+from package.functional.profil import hash_str
+from package.functional.question import Question
 from package.gui.basic_window import BasicWindow
-from package.MDP.profil import Profil
+from package.functional.profil import Profil
 
 bw: BasicWindow = BasicWindow()
 if __name__ == '__main__':

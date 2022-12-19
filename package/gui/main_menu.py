@@ -3,8 +3,8 @@ from tkinter import *
 from PIL import Image
 from PIL import ImageTk
 
-from package.MDP.profil import Profil
-from package.MDP.data import Data
+from package.functional.profil import Profil
+from package.functional.data import Data
 from package.gui.properties import *
 
 ELEMENT_PER_PAGE: int = 10

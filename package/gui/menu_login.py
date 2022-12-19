@@ -27,7 +27,7 @@ class MenuLogin:
         image = image.resize((100, 100))
         image_tk: ImageTk = ImageTk.PhotoImage(image)
 
-        from package.MDP.profil import Profil
+        from package.functional.profil import Profil
         all_profil: list[str] = Profil.all_profil_str()
         for profil_name in all_profil:
             index: int = all_profil.index(profil_name)
@@ -99,7 +99,7 @@ class MenuLogin:
 
     def try_login(self, profile_name: str, pw: str) -> None:
         from package.gui.main_menu import MainMenu
-        from package.MDP.profil import Profil
+        from package.functional.profil import Profil
         from __main__ import bw
         if pw == "":
             self.__error_login["text"] = "Veuillez entrer votre mot de passe"
