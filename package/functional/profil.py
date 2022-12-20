@@ -139,7 +139,7 @@ class Profil:
             - retourne une liste ayant comme éléments les noms de profil
         """
         all_profil: list[str] = []
-        for file in os.listdir(path=f"{os.getcwd()}\\data"):
+        for file in os.listdir(path=f"{os.getcwd()}/data"):
             if file.endswith(".alz"):
                 all_profil.append(file.split(".alz")[0])
         return all_profil
