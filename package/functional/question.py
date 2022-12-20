@@ -31,7 +31,6 @@ class Question:
             self.___index = index
         except IndexError:
             raise ValueError("L'index ne correspond à aucune question")
-
         self.__answer = answer
 
     @property
@@ -46,13 +45,8 @@ class Question:
     def index(self) -> int:
         return self.___index
 
-    @question.setter
-    def question(self, question: str) -> None:
-        self.__question = question
-
     @answer.setter
     def answer(self, answer: str) -> None:
+        if answer == "" or None:
+            raise ValueError("Réponse invalide")
         self.__answer = answer
-
-
-

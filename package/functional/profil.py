@@ -16,9 +16,6 @@ class Profil:
     __question_index: int
     __entries: list[Data]
 
-    def __init__(self) -> None:
-        pass
-
     @classmethod
     def new_profil(cls, name: str, question: Question) -> Profil:
         """
@@ -142,12 +139,9 @@ class Profil:
             - retourne une liste ayant comme éléments les noms de profil
         """
         all_profil: list[str] = []
-        try:
-            for file in os.listdir(path=f"{os.getcwd()}\\data"):
-                if file.endswith(".alz"):
-                    all_profil.append(file.split(".alz")[0])
-        except FileNotFoundError:
-            pass
+        for file in os.listdir(path=f"{os.getcwd()}\\data"):
+            if file.endswith(".alz"):
+                all_profil.append(file.split(".alz")[0])
         return all_profil
 
     @classmethod
@@ -169,13 +163,10 @@ class Profil:
         try:
             with open(f"data/{name_profil}.alz", "r") as file:
                 j_file: json = json.load(file)
-                try:
-                    decrypt: str | bool = cryptocode.decrypt(j_file[0], hashlib.md5(pw.encode()).hexdigest())
-                    if not decrypt:
-                        raise ValueError("Invalid password")
-                    j_data: dict = json.loads(decrypt)
-                except TypeError:
+                decrypt: str | bool = cryptocode.decrypt(j_file[0], hashlib.md5(pw.encode()).hexdigest())
+                if not decrypt:
                     raise ValueError("Invalid password")
+                j_data: dict = json.loads(decrypt)
                 return Profil.get_from_dict(j_data)
         except FileNotFoundError:
             raise ValueError("Profil inexistant")
@@ -187,7 +178,7 @@ class Profil:
         Dernière modification : 19 décembre 2022
 
         Permet d'ouvrir en lecture un fichier "name_profil.alz", dans une variable decrypt sera contenu le profil crypté
-        avec le answer_hash qui sera décrypté avec la clé de décryptage, si le décryptage ne se fait pas, decrypt
+        avec l'answer_hash qui sera décrypté avec la clé de décryptage, si le décryptage ne se fait pas, decrypt
         vaudra false et provoquera une ValueError, si une TypeError survient alors cela provoquera aussi une ValueError.
         La fonction retournera le profil concerné
 
@@ -199,17 +190,16 @@ class Profil:
             - renvoie ValueError si la réponse du profil crypté est invalide
 
         """
-        with open(f"data/{name_profil}.alz", "r") as file:
-            j_file: json = json.load(file)
-            try:
+        try:
+            with open(f"data/{name_profil}.alz", "r") as file:
+                j_file: json = json.load(file)
                 decrypt: str | bool = cryptocode.decrypt(j_file[1], hashlib.md5(answer.encode()).hexdigest())
                 if not decrypt:
                     raise ValueError("Réponse invalide")
                 j_data: dict = json.loads(decrypt)
-            except TypeError:
-                raise ValueError("Réponse invalide")
-            return Profil.get_from_dict(j_data)
-
+                return Profil.get_from_dict(j_data)
+        except FileNotFoundError:
+            raise ValueError(f"Profil {name_profil} inexistant")
 
     @classmethod
     def get_question_from_str(cls, name_profile: str) -> str:

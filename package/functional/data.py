@@ -99,15 +99,19 @@ class Data:
 
     @password.setter
     def password(self, password: str) -> None:
+        if password == "" or None:
+            raise ValueError("Mot de passe invalide")
         self.__password = password
 
     @username.setter
     def username(self, username: str) -> None:
+        if username == "" or None:
+            raise ValueError("Nom d'utilisateur invalide")
         self.__username = username
 
     @service.setter
     def service(self, service: str) -> None:
+        if service == "" or None:
+            raise ValueError("Service invalide")
         self.__service = service
 
-    def __str__(self):
-        return f"Username: {self.username} | MDP: {self.password} | Service: {self.service}"
