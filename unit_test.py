@@ -276,4 +276,9 @@ class TestQuestion(unittest.TestCase):
 
 
 if __name__ == '__main__':
+    import os
+    try:
+        os.makedirs("data")
+    except FileExistsError:
+        pass
     unittest.main()
