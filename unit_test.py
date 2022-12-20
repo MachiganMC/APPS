@@ -253,6 +253,14 @@ class TestQuestion(unittest.TestCase):
             '''
             Question(-1, "")
 
+        raised: bool
+        try:
+            Question(0, "answer")
+            raised = False
+        except ValueError:
+            raised = True
+        self.assertFalse(raised)
+
     def test_getter(self):
         question: Question = Question(0, "answer")
         self.assertEqual(question.question, Question.all_questions[0])

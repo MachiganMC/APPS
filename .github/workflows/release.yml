@@ -1,0 +1,53 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    name: Upload Release Asset
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Repository
+        uses: action/checkout@v3
+
+      - name: Install Librairies
+        runs: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build Project
+        runs: |
+          pyinstaller __main__.spec
+
+      - name: Zip Files
+        uses: vimtor/action-zip@v1.1
+        with:
+          files:
+            - img
+            - APPS.exe
+          dest: ./apps.zip
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tage_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Assets
+        id: upload-release-assets
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./apps.zip
+          asset_name: APPS
+

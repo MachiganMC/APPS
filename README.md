@@ -1,4 +1,4 @@
-![icon](https://github.com/MachiganMC/Projet-Dory/blob/main/package/img/icon.png?raw=true)
+![icon](https://github.com/MachiganMC/Projet-Dory/blob/main/img/icon.png?raw=true)
 ***
 
 
