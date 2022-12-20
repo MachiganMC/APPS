@@ -234,12 +234,16 @@ class Profil:
             raise ValueError(f"Profile {name_profile} inexistant")
 
     @property
-    def login(self) -> str:
+    def name(self) -> str:
         return self.__name
 
     @property
     def entries(self) -> list[Data]:
         return self.__entries
+
+    @property
+    def question_index(self) -> int:
+        return self.__question_index
 
 
 def hash_str(to_hash: str) -> str:

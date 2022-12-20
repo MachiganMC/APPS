@@ -22,9 +22,9 @@ class MainMenu:
         frame_info: Frame = Frame(self.__frame, bg=BACKGROUND_COLOR, **highlight_properties)
         frame_info.pack(side='top', fill='x')
         Button(frame_info, text="Déconnexion", **TEXT_PROPERTIES | {"font": ("Impact", 20)},
-               command=lambda: MainMenu.logout()) \
+               command=lambda: self.logout()) \
             .pack(side='left', ipadx=50)
-        Label(frame_info, text=profil.login, **text_properties | highlight_properties) \
+        Label(frame_info, text=profil.name, **text_properties | highlight_properties) \
             .pack(side='right', fill='y', ipadx=50)
         Label(frame_info, text="A.P.P.S", **text_properties | highlight_properties) \
             .pack(fill='y', expand=True, ipadx=100)
@@ -60,7 +60,7 @@ class MainMenu:
         Entry(frame_formulaire, textvariable=self.__formulaire_comment, **text_formulaire_properties) \
             .grid(row=3, column=1, padx=(0, 10))
 
-        Button(self.__frame, text="Ajouter", **text_formulaire_properties, command=lambda: self.add_data())\
+        Button(self.__frame, text="Ajouter", **text_formulaire_properties, command=lambda: self.add_data()) \
             .pack(ipadx=15)
         self.__result_add: Label = Label(self.__frame, **TEXT_PROPERTIES | {"font": ("Impact", 20)})
         self.__result_add.pack()
@@ -139,7 +139,7 @@ class MainMenu:
                 .grid(row=index, column=3, sticky='NSWE')
             if entry.comment == "":
                 Label(frame_entries, text="/", **TEXT_PROPERTIES | {"font": ("Impact", 15, "italic"),
-                                                                   "fg": "#8A8A8A"}) \
+                                                                    "fg": "#8A8A8A"}) \
                     .grid(row=index, column=4, sticky='NSWE')
             else:
                 Label(frame_entries, text=entry.comment, **text_entries_properties, **highlight_entries_properties) \
@@ -161,12 +161,12 @@ class MainMenu:
             return int(size / ELEMENT_PER_PAGE)
         return int(size / ELEMENT_PER_PAGE) + 1
 
-    @staticmethod
-    def logout():
+    def logout(self):
         from __main__ import bw
+        from package.gui.menu_logout import MenuLogout
         from package.gui.menu_login import MenuLogin
         bw.frame.destroy()
-        bw.frame = MenuLogin().frame
+        bw.frame = MenuLogout(self.__profil).frame
         bw.frame.pack()
 
     def click_delete(self, row: int, data: Data, frame_entries: Frame, old_button: Button) -> None:
@@ -211,7 +211,7 @@ class MainMenu:
         self.show_entries(self.__page)
 
     def add_data(self) -> None:
-        if self.__formulaire_user.get() == "" or self.__formulaire_pw.get() == "" or\
+        if self.__formulaire_user.get() == "" or self.__formulaire_pw.get() == "" or \
                 self.__formulaire_service.get() == "":
             self.__result_add.config(text="Veuillez remplir toutes les entrées", fg="red")
             return
@@ -219,7 +219,7 @@ class MainMenu:
         self.__profil.entries.append(Data(self.__formulaire_user.get(), self.__formulaire_pw.get(),
                                           self.__formulaire_service.get(), self.__formulaire_comment.get()))
         self.__result_add.config(text=f"L'entrée N° {len(self.__profil.entries)} a éjé ajoutée", fg="green")
-        # self.__profil.save()
+        self.show_entries(self.__page)
 
     @property
     def frame(self) -> Frame:
