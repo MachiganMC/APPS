@@ -139,9 +139,12 @@ class Profil:
             - retourne une liste ayant comme éléments les noms de profil
         """
         all_profil: list[str] = []
-        for file in os.listdir(path=f"{os.getcwd()}/data"):
-            if file.endswith(".alz"):
-                all_profil.append(file.split(".alz")[0])
+        try:
+            for file in os.listdir(path=f"{os.getcwd()}/data"):
+                if file.endswith(".alz"):
+                    all_profil.append(file.split(".alz")[0])
+        except FileNotFoundError:
+            os.makedirs("data")
         return all_profil
 
     @classmethod

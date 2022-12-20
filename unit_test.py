@@ -101,7 +101,7 @@ class TestData(unittest.TestCase):
 
 class TestProfil(unittest.TestCase):
     # utilisée pour les tests
-    __question: Question = Question(0, "réponse")
+    __question: Question = Question(0, "answer")
 
     def test_new_profil(self):
         try:
@@ -199,6 +199,29 @@ class TestProfil(unittest.TestCase):
         profil_copy: Profil = Profil.get_from_password("test_profil", "pw")
         self.assertEqual(profil.name, profil_copy.name)
 
+    def test_all_profil_str(self):
+        try:
+            os.removedirs("data")
+        except NameError:
+            pass
+
+        raised: bool
+        try:
+            Profil.all_profil_str()
+            raised = False
+        except FileNotFoundError:
+            raised = True
+        self.assertFalse(raised)
+
+        # un dossier a été créé entre temps, on test maintenant une autre partie de la fonction
+        raised: bool
+        try:
+            Profil.all_profil_str()
+            raised = False
+        except FileNotFoundError:
+            raised = True
+        self.assertFalse(raised)
+
     def test_get_from_question(self):
         import os
         from package.functional.profil import hash_str
@@ -277,6 +300,7 @@ class TestQuestion(unittest.TestCase):
 
 if __name__ == '__main__':
     import os
+
     try:
         os.makedirs("data")
     except FileExistsError:
