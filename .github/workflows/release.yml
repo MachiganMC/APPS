@@ -26,13 +26,18 @@ jobs:
 
       - name: Build Project
         run: |
-          pyinstaller --distpath img __main__.spec
+          pyinstaller --distpath app __main__.spec
 
+      - name: Copy ImgFolder
+        uses: canastro/copy-action@0.0.2
+        with:
+          source: img
+          target: app/img
 
       - name: Zip Files
         uses: vimtor/action-zip@v1.1
         with:
-          files: img
+          files: app
           dest: ./apps.zip
 
       - name: Create Release
