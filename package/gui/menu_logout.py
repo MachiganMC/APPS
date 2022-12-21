@@ -27,7 +27,7 @@ class MenuLogout:
         Entry(frame_formulaire, textvariable=self.__formulaire_answer, **text_formulaire_properties) \
             .grid(row=1, column=1, pady=5, padx=5)
 
-        Button(self.__frame, text="Sauvegarder", **text_formulaire_properties, command=lambda: self.logout())\
+        Button(self.__frame, text="Sauvegarder", **text_formulaire_properties, command=lambda: self.logout()) \
             .pack(expand=True, pady=15)
 
         self.__label_result: Label = Label(self.__frame, **TEXT_PROPERTIES)
@@ -57,7 +57,25 @@ class MenuLogout:
         bw.frame.destroy()
         bw.frame = MenuLogin().frame
         bw.frame.pack()
+        MenuLogoutConfirm()
 
     @property
     def frame(self) -> Frame:
         return self.__frame
+
+
+class MenuLogoutConfirm(Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Alzheimer Password Program Solution Sauvegarde")
+        self.iconbitmap("img/icon-a.ico")
+        self.resizable(False, False)
+        # self.state("zoomed")
+        self.minsize(width=480, height=270)
+        self.maxsize(width=480, height=270)
+        self.config(bg=BACKGROUND_COLOR)
+
+        # self.__frame = Frame(bg=BACKGROUND_COLOR)
+        # self.__frame.pack()
+        Label(self, text="Profil sauvegardé avec succès !", **TEXT_PROPERTIES | {"font": ("Impact", 20)}).pack()
+        mainloop()
