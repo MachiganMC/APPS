@@ -27,7 +27,7 @@ question de récupération configurée à la création du profil.
 ## Utilisation :
 
 Pour utiliser **APPS**, vous allez devoir installer le
-[fichier zip](https://github.com/MachiganMC/APPS/releases/download/v1.0.0/APPS.zip),
+[fichier zip](https://github.com/MachiganMC/APPS/releases/download/v1.0.1/APPS.zip),
 se trouvant dans les
 [release](https://github.com/MachiganMC/APPS/releases),
 et le dézipper, l'application sera alors directement utilisable.

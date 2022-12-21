@@ -28,6 +28,13 @@ jobs:
         run: |
           pyinstaller __main__.spec
 
+      # On déplace le fichier .exe dans le dossier "img" pour zip ce dossier
+      - name: Copy ExeFile to ImgFolder
+        uses: canastro/copy-action@0.0.2
+        with:
+          source: dist/APPS.exe
+          target: img/APPS.exe
+
       - name: Zip Files
         uses: vimtor/action-zip@v1.1
         with:
@@ -40,7 +47,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tage_name: ${{ github.ref }}
+          tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
