@@ -19,20 +19,19 @@ jobs:
           python-version: '3.10'
 
       - name: Install Librairies
-        runs: |
+        run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install pyinstaller
 
       - name: Build Project
-        runs: |
+        run: |
           pyinstaller __main__.spec
 
       - name: Zip Files
         uses: vimtor/action-zip@v1.1
         with:
-          files:
-            - img
-            - APPS.exe
+          files: img
           dest: ./apps.zip
 
       - name: Create Release

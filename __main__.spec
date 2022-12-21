@@ -41,5 +41,6 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon='package//img//icon-a.ico'
+    icon='img//icon-a.ico'
 )
+

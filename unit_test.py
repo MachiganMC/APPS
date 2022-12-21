@@ -114,8 +114,14 @@ class TestProfil(unittest.TestCase):
             Profil.new_profil("", TestProfil.__question)
         with self.assertRaises(ValueError):
             Profil.new_profil("name", TestProfil.__question)
-
-        Profil.new_profil("test", TestProfil.__question)
+        
+        raised: bool
+        try:
+            Profil.new_profil("test", TestProfil.__question)
+            raised = False
+        except ValueError:
+            raised = True
+        self.assertFalse(raised)
 
     def test_get_from_dict(self):
         profil_dict: dict = {
@@ -213,7 +219,7 @@ class TestProfil(unittest.TestCase):
             raised = True
         self.assertFalse(raised)
 
-        # un dossier a été créé entre temps, on test maintenant une autre partie de la fonction
+        # un dossier a été créé entre temps, on teste maintenant une autre partie de la fonction
         raised: bool
         try:
             Profil.all_profil_str()

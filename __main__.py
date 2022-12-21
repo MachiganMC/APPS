@@ -9,6 +9,8 @@ from package.functional.profil import Profil
 
 bw: BasicWindow = BasicWindow()
 if __name__ == '__main__':
+    import PyInstaller.config
+    PyInstaller.config.CONF["config"] = "./"
     try:
         os.makedirs("data")
     except FileExistsError:
