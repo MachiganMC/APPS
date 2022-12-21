@@ -52,11 +52,11 @@ class MenuLogout:
 
         from package.functional.profil import hash_str
         from __main__ import bw
-        from package.gui.menu_login import MenuLogin
+        from package.gui.main_menu import MainMenu
         self.__profil.save(hash_str(self.__formulaire_pw.get()), hash_str(self.__formulaire_answer.get()))
         bw.frame.destroy()
-        bw.frame = MenuLogin().frame
-        bw.frame.pack()
+        bw.frame = MainMenu(self.__profil).frame
+        bw.frame.pack(fill='both')
         MenuLogoutConfirm()
 
     @property
@@ -74,6 +74,6 @@ class MenuLogoutConfirm(Tk):
         self.maxsize(width=480, height=135)
         self.config(bg=BACKGROUND_COLOR)
 
-        Label(self, text="Profil sauvegardé avec succès !", **TEXT_PROPERTIES | {"font": ("Impact", 20)})\
+        Label(self, text="Profil sauvegardé avec succès !", **TEXT_PROPERTIES | {"font": ("Impact", 25)})\
             .pack(expand=True)
         mainloop()
