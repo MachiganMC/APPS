@@ -11,7 +11,7 @@ class MenuLogout:
         self.__frame = Frame(bg=BACKGROUND_COLOR)
         text_formulaire_properties: dict = TEXT_PROPERTIES | {"font": ("Impact", 20)}
         Label(self.__frame, text="Se déconnecter :", **TEXT_PROPERTIES).pack(expand=True)
-        Label(self.__frame, text="Pour pouvoir enregistrer votre profil, indiquez les informations suivantes :",
+        Label(self.__frame, text="Pour pouvoir sauvegarder vos modifications, indiquez les informations suivantes :",
               **text_formulaire_properties).pack(expand=True)
         frame_formulaire: Frame = Frame(self.__frame, bg=BACKGROUND_COLOR, highlightcolor='white', highlightthickness=2)
         frame_formulaire.pack(expand=True)
@@ -70,12 +70,10 @@ class MenuLogoutConfirm(Tk):
         self.title("Alzheimer Password Program Solution Sauvegarde")
         self.iconbitmap("img/icon-a.ico")
         self.resizable(False, False)
-        # self.state("zoomed")
-        self.minsize(width=480, height=270)
-        self.maxsize(width=480, height=270)
+        self.minsize(width=480, height=135)
+        self.maxsize(width=480, height=135)
         self.config(bg=BACKGROUND_COLOR)
 
-        # self.__frame = Frame(bg=BACKGROUND_COLOR)
-        # self.__frame.pack()
-        Label(self, text="Profil sauvegardé avec succès !", **TEXT_PROPERTIES | {"font": ("Impact", 20)}).pack()
+        Label(self, text="Profil sauvegardé avec succès !", **TEXT_PROPERTIES | {"font": ("Impact", 20)})\
+            .pack(expand=True)
         mainloop()

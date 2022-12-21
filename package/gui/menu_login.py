@@ -54,12 +54,15 @@ class MenuLogin:
 
         self.__label_hello = Label(self.__frame, **TEXT_PROPERTIES)
         self.__label_hello.pack()
+        self.__frame_line = Frame(self.__frame)
         self.__formulaire = Frame(self.__frame, bg=BACKGROUND_COLOR)
         self.__error_login: Label = Label()
         self.__button_forgot_pw: Button = Button()
 
     def on_click(self, name_profile: str):
-        Frame(self.__frame, highlightcolor="white", highlightthickness=1).pack(fill='x')
+        self.__frame_line.destroy()
+        self.__frame_line: Frame = Frame(self.__frame, highlightcolor="white", highlightthickness=1)
+        self.__frame_line.pack(fill='x')
         text_properties: dict = TEXT_PROPERTIES | {"font": ("Impact", 20)}
         self.__label_hello["text"] = f"Bonjour {name_profile}"
         self.__formulaire.destroy()

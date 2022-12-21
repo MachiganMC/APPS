@@ -15,15 +15,17 @@ highlight_properties: dict = {"highlightcolor": "white", "highlightthickness": 2
 class MainMenu:
 
     def __init__(self, profil: Profil) -> None:
+        self.__has_to_logout = True
         self.__page = None
         self.__profil = profil
         self.__frame: Frame = Frame(bg=BACKGROUND_COLOR)
 
         frame_info: Frame = Frame(self.__frame, bg=BACKGROUND_COLOR, **highlight_properties)
         frame_info.pack(side='top', fill='x')
-        Button(frame_info, text="Déconnexion", **TEXT_PROPERTIES | {"font": ("Impact", 20)},
-               command=lambda: self.logout()) \
-            .pack(side='left', ipadx=50)
+        self.__button_logout: Button = Button(frame_info, text="Déconnexion",
+                                              **TEXT_PROPERTIES | {"font": ("Impact", 20)},
+                                              command=lambda: self.logout())
+        self.__button_logout.pack(side='left', ipadx=50)
         Label(frame_info, text=profil.name, **text_properties | highlight_properties) \
             .pack(side='right', fill='y', ipadx=50)
         Label(frame_info, text="A.P.P.S", **text_properties | highlight_properties) \
@@ -42,23 +44,27 @@ class MainMenu:
         Label(frame_formulaire, text="Nom d'utilisateur :", **text_formulaire_properties) \
             .grid(row=0, column=0, pady=5, padx=(10, 0))
         self.__formulaire_user: StringVar = StringVar()
-        Entry(frame_formulaire, textvariable=self.__formulaire_user, **text_formulaire_properties) \
-            .grid(row=0, column=1, padx=(0, 10))
+        self.__entry_user: Entry = Entry(frame_formulaire, textvariable=self.__formulaire_user,
+                                         **text_formulaire_properties)
+        self.__entry_user.grid(row=0, column=1, padx=(0, 10))
         Label(frame_formulaire, text="Mot de passe :", **text_formulaire_properties) \
             .grid(row=1, column=0, pady=5, padx=(10, 0))
         self.__formulaire_pw: StringVar = StringVar()
-        Entry(frame_formulaire, textvariable=self.__formulaire_pw, **text_formulaire_properties) \
-            .grid(row=1, column=1, padx=(0, 10))
+        self.__entry_pw: Entry = Entry(frame_formulaire, textvariable=self.__formulaire_pw,
+                                       **text_formulaire_properties)
+        self.__entry_pw.grid(row=1, column=1, padx=(0, 10))
         Label(frame_formulaire, text="Service :", **text_formulaire_properties) \
             .grid(row=2, column=0, pady=5, padx=(10, 0))
         self.__formulaire_service: StringVar = StringVar()
-        Entry(frame_formulaire, textvariable=self.__formulaire_service, **text_formulaire_properties) \
-            .grid(row=2, column=1, padx=(0, 10))
+        self.__entry_service: Entry = Entry(frame_formulaire, textvariable=self.__formulaire_service,
+                                            **text_formulaire_properties)
+        self.__entry_service.grid(row=2, column=1, padx=(0, 10))
         Label(frame_formulaire, text="Commentaire :", **text_formulaire_properties) \
             .grid(row=3, column=0, pady=5, padx=(10, 0))
         self.__formulaire_comment: StringVar = StringVar()
-        Entry(frame_formulaire, textvariable=self.__formulaire_comment, **text_formulaire_properties) \
-            .grid(row=3, column=1, padx=(0, 10))
+        self.__entry_comment: Entry = Entry(frame_formulaire, textvariable=self.__formulaire_comment,
+                                            **text_formulaire_properties)
+        self.__entry_comment.grid(row=3, column=1, padx=(0, 10))
 
         Button(self.__frame, text="Ajouter", **text_formulaire_properties, command=lambda: self.add_data()) \
             .pack(ipadx=15)
@@ -86,6 +92,10 @@ class MainMenu:
         self.__page = page
         for widget in self.__frame_entries_parent.winfo_children():
             widget.destroy()
+
+        if len(self.__profil.entries) == 0:
+            Label(self.__frame_entries_parent, text="Aucune entrée enregistrée", **TEXT_PROPERTIES).pack(pady=5)
+            return
 
         label_page: Label = Label(self.__frame_entries_parent, **text_properties)
         label_page.pack(pady=5)
@@ -164,10 +174,16 @@ class MainMenu:
     def logout(self):
         from __main__ import bw
         from package.gui.menu_logout import MenuLogout
-        from package.gui.menu_login import MenuLogin
-        bw.frame.destroy()
-        bw.frame = MenuLogout(self.__profil).frame
-        bw.frame.pack()
+        if self.__has_to_logout:
+            from package.gui.menu_login import MenuLogin
+            bw.frame.destroy()
+            bw.frame = MenuLogin().frame
+            bw.frame.pack()
+        else:
+            from package.gui.menu_login import MenuLogin
+            bw.frame.destroy()
+            bw.frame = MenuLogout(self.__profil).frame
+            bw.frame.pack()
 
     def click_delete(self, row: int, data: Data, frame_entries: Frame, old_button: Button) -> None:
         """
@@ -208,6 +224,8 @@ class MainMenu:
 
     def delete(self, account: Data):
         self.__profil.entries.remove(account)
+        self.__has_to_logout = False
+        self.__button_logout.config(text="Sauvegarder")
         self.show_entries(self.__page)
 
     def add_data(self) -> None:
@@ -219,6 +237,17 @@ class MainMenu:
         self.__profil.entries.append(Data(self.__formulaire_user.get(), self.__formulaire_pw.get(),
                                           self.__formulaire_service.get(), self.__formulaire_comment.get()))
         self.__result_add.config(text=f"L'entrée N° {len(self.__profil.entries)} a éjé ajoutée", fg="green")
+
+        self.__formulaire_user = StringVar()
+        self.__entry_user.config(textvariable=self.__formulaire_user)
+        self.__formulaire_pw = StringVar()
+        self.__entry_pw.config(textvariable=self.__formulaire_pw)
+        self.__formulaire_service = StringVar()
+        self.__entry_service.config(textvariable=self.__formulaire_service)
+        self.__formulaire_comment = StringVar()
+        self.__entry_comment.config(textvariable=self.__formulaire_comment)
+        self.__has_to_logout = False
+        self.__button_logout.config(text="Sauvegarder")
         self.show_entries(self.__page)
 
     @property
