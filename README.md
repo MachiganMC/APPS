@@ -1,4 +1,4 @@
-![icon](https://github.com/MachiganMC/Projet-Dory/blob/main/img/icon.png?raw=true)
+![icon](https://github.com/MachiganMC/APPS/blob/main/img/icon.png?raw=true)
 ***
 
 
@@ -26,17 +26,18 @@ question de récupération configurée à la création du profil.
 
 ## Utilisation :
 
-Pour utiliser **APPS**, vous allez devoir installer le fichier exécutable
-se trouvant dans les 
-[releases](https://github.com/MachiganMC/Projet-Dory/releases). 
-Il ne faut pas oublier de prendre le dossier des images se trouvant 
-dans le dossier
-[img](https://github.com/MachiganMC/Projet-Dory/tree/main/img) du GitHub
+Pour utiliser **APPS**, vous allez devoir installer le
+[fichier zip](https://github.com/MachiganMC/APPS/releases/download/v1.0.0/APPS.zip),
+se trouvant dans les
+[release](https://github.com/MachiganMC/APPS/releases),
+et le dézipper, l'application sera alors directement utilisable.
 
 Si vous voulez récupérer le code source, vous pouvez faire un
-`git clone https://github.com/MachiganMC/Projet-Dory.git` et télécharger
+`git clone https://github.com/MachiganMC/APPS.git` et télécharger
 les librairies se trouvant dans les 
-[requirements](https://github.com/MachiganMC/Projet-Dory/blob/main/requirements.txt).
+[requirements](https://github.com/MachiganMC/APPS/blob/main/requirements.txt)
+ou utiliser la commande dans votre terminal dans le dossier du projet 
+`pip install -r requirements.txt`.
 
 
 

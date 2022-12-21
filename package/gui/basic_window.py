@@ -1,5 +1,6 @@
 from tkinter import *
 from package.gui.properties import *
+import logging
 
 
 class BasicWindow(Tk):

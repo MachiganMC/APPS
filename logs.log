@@ -1,0 +1,11 @@
+INFO 21/12/2022 18h19m37s [__main__.py:14 at <module>] : Démarrage de l'application
+INFO 21/12/2022 18h20m28s [__main__.py:14 at <module>] : Démarrage de l'application
+INFO 21/12/2022 18h22m09s [__main__.py:14 at <module>] : Démarrage de l'application
+INFO 21/12/2022 18h22m24s [__main__.py:14 at <module>] : Démarrage de l'application
+INFO 21/12/2022 18h23m29s [__main__.py:14 at <module>] : Démarrage de l'application
+INFO 21/12/2022 18h24m05s [__main__.py:14 at <module>] : Démarrage de l'application
+INFO 21/12/2022 18h25m05s [__main__.py:14 at <module>] : Démarrage de l'application
+INFO 21/12/2022 20h41m34s [basic_window.py:37 at __init__] : testr
+INFO 21/12/2022 20h41m34s [__main__.py:14 at <module>] : Démarrage de l'application
+WARNING 21/12/2022 20h41m34s [__main__.py:14 at <module>] : Démarrage de l'application
+ERROR 21/12/2022 20h41m34s [__main__.py:14 at <module>] : Démarrage de l'application

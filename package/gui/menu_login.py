@@ -1,3 +1,4 @@
+import logging
 from tkinter import *
 from package.gui.properties import BACKGROUND_COLOR, FONT_COLOR, TEXT_PROPERTIES
 from PIL import Image, ImageTk
@@ -104,6 +105,7 @@ class MenuLogin:
         from package.gui.main_menu import MainMenu
         from package.functional.profil import Profil
         from __main__ import bw
+        from package.utils.log_handler import setup_log
         if pw == "":
             self.__error_login["text"] = "Veuillez entrer votre mot de passe"
             return
@@ -112,8 +114,16 @@ class MenuLogin:
             bw.frame.destroy()
             bw.frame = MainMenu(profil).frame
             bw.frame.pack(fill='both')
+            setup_log()
+            logger: logging.Logger = logging.getLogger("APPS")
+            logger.setLevel(logging.INFO)
+            logger.info(f"Le profil {profil.name} vient de se connecter")
         except ValueError:
             self.__error_login["text"] = "Mot de pas incorrect"
+            setup_log()
+            logger: logging.Logger = logging.getLogger("APPS")
+            logger.setLevel(logging.INFO)
+            logger.info(f"Le profil {profile_name} n'a pas réussi à se connecter")
 
     @staticmethod
     def change_password(name_profile: str):

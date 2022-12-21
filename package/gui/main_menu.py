@@ -1,3 +1,4 @@
+import logging
 from tkinter import *
 
 from PIL import Image
@@ -176,9 +177,14 @@ class MainMenu:
         from package.gui.menu_logout import MenuLogout
         if self.__has_to_logout:
             from package.gui.menu_login import MenuLogin
+            from package.utils.log_handler import setup_log
             bw.frame.destroy()
             bw.frame = MenuLogin().frame
             bw.frame.pack()
+            setup_log()
+            logger: logging.Logger = logging.getLogger("APPS")
+            logger.setLevel(logging.INFO)
+            logger.info(f"Le profil {self.__profil.name} s'est déconnecté. Aucun changement n'a été effectué")
         else:
             from package.gui.menu_login import MenuLogin
             bw.frame.destroy()
@@ -223,10 +229,16 @@ class MainMenu:
         button.grid(row=row, column=5)
 
     def delete(self, account: Data):
+        from package.utils.log_handler import setup_log
         self.__profil.entries.remove(account)
         self.__has_to_logout = False
         self.__button_logout.config(text="Sauvegarder")
         self.show_entries(self.__page)
+
+        setup_log()
+        logger: logging.Logger = logging.getLogger("APPS")
+        logger.setLevel(logging.INFO)
+        logger.info(f"Une entrée du profil {self.__profil.name} a été retirée")
 
     def add_data(self) -> None:
         if self.__formulaire_user.get() == "" or self.__formulaire_pw.get() == "" or \
@@ -249,6 +261,12 @@ class MainMenu:
         self.__has_to_logout = False
         self.__button_logout.config(text="Sauvegarder")
         self.show_entries(self.__page)
+
+        from package.utils.log_handler import setup_log
+        setup_log()
+        logger: logging.Logger = logging.getLogger("APPS")
+        logger.setLevel(logging.INFO)
+        logger.info(f"Une entrée du profil {self.__profil.name} a été ajoutée")
 
     @property
     def frame(self) -> Frame:

@@ -1,3 +1,4 @@
+import logging
 from tkinter import *
 
 from package.functional.profil import Profil
@@ -53,11 +54,17 @@ class MenuLogout:
         from package.functional.profil import hash_str
         from __main__ import bw
         from package.gui.main_menu import MainMenu
+        from package.utils.log_handler import setup_log
         self.__profil.save(hash_str(self.__formulaire_pw.get()), hash_str(self.__formulaire_answer.get()))
         bw.frame.destroy()
         bw.frame = MainMenu(self.__profil).frame
         bw.frame.pack(fill='both')
         MenuLogoutConfirm()
+
+        setup_log()
+        logger: logging.Logger = logging.getLogger("APPS")
+        logger.setLevel(logging.INFO)
+        logger.info(f"Le profil {self.__profil.name} a sauvegardé ses changements")
 
     @property
     def frame(self) -> Frame:
