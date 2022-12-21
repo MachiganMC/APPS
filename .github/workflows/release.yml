@@ -26,12 +26,12 @@ jobs:
 
       - name: Build Project
         run: |
-          pyinstaller --distpath . __main__.spec
+          pyinstaller --distpath ./app __main__.spec
 
       - name: Zip Files
         uses: vimtor/action-zip@v1.1
         with:
-          files: img/ APPS.exe
+          files: img/ ./app/APPS.exe
           dest: ./apps.zip
 
       - name: Create Release
