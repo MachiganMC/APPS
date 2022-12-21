@@ -26,14 +26,8 @@ jobs:
 
       - name: Build Project
         run: |
-          pyinstaller __main__.spec
+          pyinstaller --distpath test __main__.spec
 
-      # On déplace le fichier .exe dans le dossier "img" pour zip ce dossier
-      - name: Copy ExeFile to ImgFolder
-        uses: canastro/copy-action@0.0.2
-        with:
-          source: /home/runner/work/APPS/APPS/dist/APPS.exe
-          target: img/APPS.exe
 
       - name: Zip Files
         uses: vimtor/action-zip@v1.1
