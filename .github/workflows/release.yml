@@ -32,7 +32,7 @@ jobs:
       - name: Copy ExeFile to ImgFolder
         uses: canastro/copy-action@0.0.2
         with:
-          source: dist/APPS.exe
+          source: /home/runner/work/APPS/APPS/dist/APPS.exe
           target: img/APPS.exe
 
       - name: Zip Files
