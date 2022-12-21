@@ -55,4 +55,5 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./apps.zip
           asset_name: APPS
+          asset_content_type: application/zip
 
