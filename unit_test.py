@@ -211,7 +211,7 @@ class TestProfil(unittest.TestCase):
             for file in os.listdir("data"):
                 os.remove("data/" + file)
             os.removedirs("data")
-        except NameError:
+        except FileNotFoundError:
             pass
 
         raised: bool
