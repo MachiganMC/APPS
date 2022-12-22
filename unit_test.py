@@ -206,7 +206,10 @@ class TestProfil(unittest.TestCase):
         self.assertEqual(profil.name, profil_copy.name)
 
     def test_all_profil_str(self):
+        import os
         try:
+            for file in os.listdir("data"):
+                os.remove("data/" + file)
             os.removedirs("data")
         except NameError:
             pass
@@ -220,6 +223,20 @@ class TestProfil(unittest.TestCase):
         self.assertFalse(raised)
 
         # un dossier a été créé entre temps, on teste maintenant une autre partie de la fonction
+        raised: bool
+        try:
+            Profil.all_profil_str()
+            raised = False
+        except FileNotFoundError:
+            raised = True
+        self.assertFalse(raised)
+
+        try:
+            for file in os.listdir("data"):
+                os.remove(file)
+            os.removedirs("data")
+        except FileNotFoundError:
+            pass
         raised: bool
         try:
             Profil.all_profil_str()
